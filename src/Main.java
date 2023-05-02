@@ -5,11 +5,6 @@ public class Main {
     public static void main(String[] args) {
         MyThread mt = new MyThread();
         mt.start();
-
-        MyRunnable myRunnable = new MyRunnable();
-        Thread t = new Thread(myRunnable);
-        t.start();
-
         printPositiveNumber();
 
     }
@@ -55,4 +50,5 @@ class MyThread extends Thread{
     public void run(){
         Main.printNegativeNumber();
     }
+
 }
