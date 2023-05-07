@@ -7,8 +7,6 @@ public class Synchronization {
         cbt.start();
         CustomThread ct = new CustomThread(bn);
         ct.start();
-        bn.cashWithdrawl(800);
-
 
     }
 }
@@ -40,7 +38,7 @@ class Bank {
     public int balance = 1000;
     public Bank st = null;
 
-    public synchronized void cashWithdrawl(int amount) {
+    public void cashWithdrawl(int amount) {
             System.out.println("Entering - " + Thread.currentThread().getName());
 
         try {
@@ -50,14 +48,15 @@ class Bank {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-
-        if(balance > amount){
+        synchronized (this){
+            if(balance > amount){
                 System.out.println("Withdrawing cash - " + amount);
                 balance = balance - amount;
             }else {
                 System.out.println("Insufficient fund" + Thread.currentThread().getName());
             }
-            System.out.println("Exiting - " + Thread.currentThread().getName());
+        }
+        System.out.println("Exiting - " + Thread.currentThread().getName());
     }
     public int checkBalance(){
         return balance;
